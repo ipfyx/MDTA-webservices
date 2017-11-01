@@ -61,5 +61,8 @@ typings/
 # WebStorm 
 .idea/
 
-#Fichier CSV
+#CSV file
 *.csv
+
+#DB config file
+./databaseconf.js
