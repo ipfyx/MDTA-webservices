@@ -1,0 +1,81 @@
+[
+  {
+    "type": "get",
+    "url": "/api/permissions/",
+    "title": "List all permissions and their repartition",
+    "group": "Permissions",
+    "version": "0.0.0",
+    "filename": "./routes/permissions.js",
+    "groupTitle": "Permissions",
+    "name": "GetApiPermissions",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "permission_name",
+            "description": "<p>Permission name</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "permission_level",
+            "description": "<p>Permission level</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "is_deprecated",
+            "description": "<p>Permission state</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "financial_impact",
+            "description": "<p>Permission has an impact on financial aspect</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "privacy_impact",
+            "description": "<p>Permission has an impact on privacy aspect</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "system_impact",
+            "description": "<p>Permission has an impact on system aspect</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "battery_impact",
+            "description": "<p>Permission has an impact on battery aspect</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "location_impact",
+            "description": "<p>Permission accesses information about location</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\"permission_name\":\"string_1\",\n      \"permission_level\":\"string_2\",\n      \"is_deprecated\":false,\n      \"financial_impact\":false,\n      \"privacy_impact\":false,\n      \"system_impact\":false,\n      \"battery_impact\":false,\n      \"location_impact\":false}",
+          "type": "json"
+        }
+      ]
+    }
+  }
+]
