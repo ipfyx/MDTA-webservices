@@ -1,6 +1,10 @@
-var Permission = require('../models/PermissionModel');
+var Permission = require('../models/database/PermissionModel');
 
-
+/**
+ * Retrieve and send Permission global list
+ * @param req
+ * @param res
+ */
 exports.permission_list = function (req, res) {
 
     Permission.find({},{_id:0})
@@ -13,4 +17,5 @@ exports.permission_list = function (req, res) {
         });
 
 };
+
 
