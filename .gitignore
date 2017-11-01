@@ -65,4 +65,4 @@ typings/
 *.csv
 
 #DB config file
-./databaseconf.js
+databaseconf.js
