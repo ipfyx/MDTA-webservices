@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var PackagesListSchema = Schema(
+var PackageListSchema = Schema(
     {
         Packages: [
             {
@@ -23,4 +23,4 @@ var PackagesListSchema = Schema(
 
 
 //Export model
-module.exports = mongoose.model('PackagesList', PackagesListSchema);
+module.exports = mongoose.model('PackageList', PackageListSchema);
