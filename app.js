@@ -9,7 +9,6 @@ var expressValidator = require('express-validator');
 var databaseconf = require('./databaseconf');
 var index = require('./routes/index');
 var permissions = require('./routes/permissions');
-
 var app = express();
 
 
