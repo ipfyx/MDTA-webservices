@@ -2,23 +2,25 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var PermissionSchema = Schema(
+var BasicScanResultSchema = Schema(
     {
-        permission_name: {type: String, required: true, max: 100},
-        permission_level: {
-            type: String,
-            enum: ['No Protection', 'Normal', 'Dangerous', 'Signature', 'System|Signature', 'System', 'Signature|Privileged','No ThirdParty'],
-            required: true
-        },
-        is_deprecated: {type: Boolean, required: true},
-        financial_impact: {type: Boolean, required: true},
-        privacy_impact: {type: Boolean, required: true},
-        system_impact: {type: Boolean, required: true},
-        battery_impact: {type: Boolean, required: true},
-        location_impact: {type: Boolean, required: true},
+        status: {type: Number, required: true},
+        error: {type: String},
+        result: [
+            {
+                AppName: {type: String},
+                DeprecatedPermissionsNumber: {type: Number},
+                FinancialImpactPermissionsNumber: {type: Number},
+                PrivacyImpactPermissionsNumber: {type: Number},
+                SystemImpactPermissionsNumber: {type: Number},
+                BatteryImpactPermissionsNumber: {type: Number},
+                LocationImpactPermissionsNumber: {type: Number},
+            }
+        ]
     }
-);
+    )
+;
 
 
 //Export model
-module.exports = mongoose.model('Permission', PermissionSchema);
+module.exports = mongoose.model('BasicScanResult', BasicScanResultSchema);
