@@ -2,19 +2,14 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var BasicScanResultSchema = Schema(
+var DeveloperSignatureScanResultSchema = Schema(
     {
         status: {type: Number, required: true},
         error: {type: String},
         result: [
             {
-                AppName: {type: String},
-                DeprecatedPermissionsNumber: {type: Number},
-                FinancialImpactPermissionsNumber: {type: Number},
-                PrivacyImpactPermissionsNumber: {type: Number},
-                SystemImpactPermissionsNumber: {type: Number},
-                BatteryImpactPermissionsNumber: {type: Number},
-                LocationImpactPermissionsNumber: {type: Number},
+                PackageName: {type: String},
+                IsBlacklisted: {type: Boolean}
             }
         ]
     }
@@ -23,4 +18,4 @@ var BasicScanResultSchema = Schema(
 
 
 //Export model
-module.exports = mongoose.model('BasicScanResult', BasicScanResultSchema);
+module.exports = mongoose.model('DeveloperSignatureScanResult', DeveloperSignatureScanResultSchema);
