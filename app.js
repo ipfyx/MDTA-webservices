@@ -9,6 +9,7 @@ var expressValidator = require('express-validator');
 var databaseconf = require('./databaseconf');
 var index = require('./routes/index');
 var permissions = require('./routes/permissions');
+var signatures = require('./routes/signatures');
 var app = express();
 
 
@@ -47,6 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/api/permissions', permissions);
+app.use('/api/signatures', signatures);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
