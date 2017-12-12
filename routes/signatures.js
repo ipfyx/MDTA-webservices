@@ -1,91 +1,64 @@
 var express = require('express');
 var router = express.Router();
 
-var permission_controller = require('../controllers/permissionController');
+var signature_controller = require('../controllers/signatureController');
 
 /**
- * @apiDefine PermissionsListResults
- * @apiSuccess {String} permission_name Permission name
- * @apiSuccess {String} permission_level Permission level
- * @apiSuccess {Boolean} is_deprecated Permission state
- * @apiSuccess {Boolean} financial_impact Permission has an impact on financial aspect
- * @apiSuccess {Boolean} privacy_impact Permission has an impact on privacy aspect
- * @apiSuccess {Boolean} system_impact Permission has an impact on system aspect
- * @apiSuccess {Boolean} battery_impact Permission has an impact on battery aspect
- * @apiSuccess {Boolean} location_impact Permission accesses information about location
+ * @apiDefine BlacklistedDeveloperSignatureListResults
+ * @apiSuccess {String} package_name Package name
+ * @apiSuccess {String} key_algorithm Key Algorithm
+ * @apiSuccess {String} key_base64 Key Base64
  * @apiSuccessExample {json} Success-Response:
  *    HTTP/1.1 200 OK
- *    {"permission_name":"string_1",
- *          "permission_level":"string_2",
- *          "is_deprecated":false,
- *          "financial_impact":false,
- *          "privacy_impact":false,
- *          "system_impact":false,
- *          "battery_impact":false,
- *          "location_impact":false}
+ *    {"package_name":"string_1",
+ *          "key_algorithm":"string_2",
+ *          "key_base64":"string_3"}
  */
 
+/**
+ * @apiDefine NewDeveloperSignature
+ * @apiParam {String} package_name Package name
+ * @apiParam {String} key_algorithm Key Algorithm
+ * @apiParam {String} key_base64 Key Base64
+ * @apiParamExample {json} Request-Example:
+ *    {"package_name":"string_1",
+ *          "key_algorithm":"string_2",
+ *          "key_base64":"string_3"}
+ */
 
 /**
- * @apiDefine BasicScanResult
- * @apiParam {Object[]} Packages
- * @apiParam {String} Packages.AppName Application Name
- * @apiParam {String} Packages.PackageName PackageName
- * @apiParam {Number} Packages.VersionCode Actual version code
- * @apiParam {String} Packages.VersionName Actual version name
- * @apiParam {Number} Packages.FirstInstallTime First install date
- * @apiParam {Number} Packages.LastUpdateTime Last update date
- * @apiParam {String[]} Packages.Permissions Permissions'list
+ * @apiDefine DeveloperSignatureScanResult
+ * @apiParam {Object[]} DeveloperSignatures
+ * @apiParam {String} DeveloperSignatures.PackageName Package Name
+ * @apiParam {String} DeveloperSignatures.KeyAlgorithm Key Algorithm
+ * @apiParam {String} DeveloperSignatures.KeyBase64 Key Base64
  * @apiParamExample {json} Request-Example:
- *     {"Packages": [
+ *     {"DeveloperSignatures": [
  *          {
- *               "AppName":"string_0",
- *               "PackageName": "string_1",
- *               "VersionCode": 0,
- *               "VersionName": "string_2",
- *               "FirstInstallTime": 0,
- *               "LastUpdateTime":0,
- *               "Permissions": ["string_3", "string_4"]
+ *               "PackageName":"string_0",
+ *               "KeyAlgorithm": "string_1",
+ *               "KeyBase64": "string_2",
  *           },
  *      {
- *               "AppName": "string_5",
- *               "PackageName": "string_6",
- *               "VersionCode": 0,
- *               "VersionName": "string_7",
- *               "FirstInstallTime": 0,
- *               "LastUpdateTime":0,
- *               "Permissions": ["string_8","string_9"]
+ *               "PackageName": "string_3",
+ *               "KeyAlgorithm": "string_4",
+ *               "KeyBase64": "string_5",
  *           }
  *       ]
  *   }
  * @apiSuccess {Number} status Status
  * @apiSuccess {Object[]} result
- * @apiSuccess {String} result.AppName Application Name
- * @apiSuccess {Number} result.DeprecatedPermissionsNumber Number of Deprecated Permissions
- * @apiSuccess {Number} result.FinancialImpactPermissionsNumber Number of Permissions with a financial impact
- * @apiSuccess {Number} result.PrivacyImpactPermissionsNumber Number of Permissions with a privacy impact
- * @apiSuccess {Number} result.SystemImpactPermissionsNumber Number of Permissions with a system impact
- * @apiSuccess {Number} result.BatteryImpactPermissionsNumber Number of Permissions with a battery impact
- * @apiSuccess {Number} result.LocationImpactPermissionsNumber Number of Permissions with a location impact
+ * @apiSuccess {String} result.PackageName Package Name
+ * @apiSuccess {Boolean} result.IsBlacklisted Result
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
  *     {"status":200,
  *          "result":[
- *                  {"AppName":"string_0",
- *                  "DeprecatedPermissionsNumber":0,
- *                  "FinancialImpactPermissionsNumber":0,
- *                  "PrivacyImpactPermissionsNumber":0,
- *                  "SystemImpactPermissionsNumber":0,
- *                  "BatteryImpactPermissionsNumber":0,
- *                  "LocationImpactPermissionsNumber":0
+ *                  {"PackageName":"string_0",
+ *                  "IsBlacklisted":true,
  *                  },
- *                  {"AppName":"string_1",
- *                  "DeprecatedPermissionsNumber":0,
- *                  "FinancialImpactPermissionsNumber":0,
- *                  "PrivacyImpactPermissionsNumber":0,
- *                  "SystemImpactPermissionsNumber":0,
- *                  "BatteryImpactPermissionsNumber":0,
- *                  "LocationImpactPermissionsNumber":0}
+ *                  {"PackageName":"string_1",
+ *                  "IsBlacklisted":true,
  *                  ]}
  * @apiError {Number} status ErrorStatus
  * @apiError {String} error Verbose error
@@ -99,18 +72,25 @@ var permission_controller = require('../controllers/permissionController');
 
 
 /**
- * @api {get} /api/permissions/ List all permissions and their repartition
- * @apiGroup Permissions
- * @apiUse PermissionsListResults
+ * @api {get} /api/signatures/ List all blacklisted signatures and their repartition
+ * @apiGroup Signatures
+ * @apiUse BlacklistedDeveloperSignatureListResults
  */
-router.get('/', permission_controller.permission_list);
+router.get('/', signature_controller.blacklisted_developer_signature_list);
 
 /**
- * @api {post} /api/permissions/basicscan Make the Basic Scan of all the sent packages
- * @apiGroup Permissions
- * @apiUse BasicScanResult
+ * @api {post} /api/signatures/developersignaturescan Make the Basic Scan of all the sent packages
+ * @apiGroup Signatures
+ * @apiUse DeveloperSignatureScanResult
  */
-router.post('/basicscan', permission_controller.permission_basic_scan);
+router.post('/developersignaturescan', signature_controller.developer_signature_scan);
+
+/**
+ * @api {post} /api/signatures/blacklist Make the Basic Scan of all the sent packages
+ * @apiGroup Signatures
+ * @apiUse NewDeveloperSignature
+ */
+router.post('/blacklist', signature_controller.blacklist_developer_signature);
 
 
 module.exports = router;
