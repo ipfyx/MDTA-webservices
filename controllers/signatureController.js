@@ -51,7 +51,8 @@ exports.developer_signature_scan = function (req, res) {
 
     //Scan asynchronously all the packages
     async.forEach(developerSignatureList.DeveloperSignatures, function (developerSignatures,callbackPackageList) {
-            DeveloperSignature.count({
+        console.log(developerSignatures)   ;
+        DeveloperSignature.count({
                 key_algorithm: developerSignatures.KeyAlgorithm,
                 key_base64: developerSignatures.KeyBase64
             },function (err, count) {
@@ -69,8 +70,9 @@ exports.developer_signature_scan = function (req, res) {
                 }
 
                 developerSignatureScanResult.result.push(data);
-        });
             callbackPackageList();
+        });
+
     }, function (err) {
         //The result is sent when all the packages has been checked
         res.json(developerSignatureScanResult);
