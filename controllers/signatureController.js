@@ -50,29 +50,27 @@ exports.developer_signature_scan = function (req, res) {
     developerSignatureScanResult.status = 200;
 
     //Scan asynchronously all the packages
-    async.forEach(developerSignatureList.DeveloperSignatures, function (developerSignatures) {
-        var blacklisted_signature = function (callback) {
+    async.forEach(developerSignatureList.DeveloperSignatures, function (developerSignatures,callbackPackageList) {
             DeveloperSignature.count({
                 key_algorithm: developerSignatures.KeyAlgorithm,
                 key_base64: developerSignatures.KeyBase64
-            }, callback);
-        }
-        var data;
-        if (permission_deprecated > 0) {
-            data = {
-                PackageName: developerSignatures.PackageName,
-                IsBlacklisted: true
-            };
-        } else {
-            data = {
-                PackageName: developerSignatures.PackageName,
-                IsBlacklisted: false
-            };
-        }
+            },function (err, count) {
+                var data;
+                if (count > 0) {
+                    data = {
+                        PackageName: developerSignatures.PackageName,
+                        IsBlacklisted: true
+                    };
+                } else {
+                    data = {
+                        PackageName: developerSignatures.PackageName,
+                        IsBlacklisted: false
+                    };
+                }
 
-        developerSignatureScanResult.result.push(data);
-
-
+                developerSignatureScanResult.result.push(data);
+        });
+            callbackPackageList();
     }, function (err) {
         //The result is sent when all the packages has been checked
         res.json(developerSignatureScanResult);
