@@ -8,7 +8,7 @@ var BasicScanResultSchema = Schema(
         error: {type: String},
         result: [
             {
-                AppName: {type: String},
+                PackageName: {type: String},
                 DeprecatedPermissionsNumber: {type: Number},
                 FinancialImpactPermissionsNumber: {type: Number},
                 PrivacyImpactPermissionsNumber: {type: Number},

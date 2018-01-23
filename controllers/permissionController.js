@@ -83,7 +83,7 @@ exports.permission_basic_scan = function (req, res) {
             //Arrived here if all the permissions have been checked and set up the current response element related
             //to this package
             var data = {
-                AppName: package.AppName,
+                PackageName: package.PackageName,
                 DeprecatedPermissionsNumber: deprecatedPermissionsNumber,
                 FinancialImpactPermissionsNumber: financialImpactPermissionsNumber,
                 PrivacyImpactPermissionsNumber: privacyImpactPermissionsNumber,
