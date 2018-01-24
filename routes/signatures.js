@@ -86,11 +86,25 @@ router.get('/', signature_controller.blacklisted_developer_signature_list);
 router.post('/developersignaturescan', signature_controller.developer_signature_scan);
 
 /**
- * @api {post} /api/signatures/blacklist Make the Basic Scan of all the sent packages
+ * @api {post} /api/signatures/certificatesignaturescan Make the Basic Scan of all the sent packages
+ * @apiGroup Signatures
+ * @apiUse DeveloperSignatureScanResult
+ */
+router.post('/certificatesignaturescan', signature_controller.certificate_signature_scan);
+
+/**
+ * @api {post} /api/signatures/blacklistdeveloper Blacklist developer key
  * @apiGroup Signatures
  * @apiUse NewDeveloperSignature
  */
-router.post('/blacklist', signature_controller.blacklist_developer_signature);
+router.post('/blacklistdeveloper', signature_controller.blacklist_developer_signature);
+
+/**
+ * @api {post} /api/signatures/blacklist Blacklist application according to its certificate
+ * @apiGroup Signatures
+ * @apiUse NewDeveloperSignature
+ */
+router.post('/blacklistcertificate', signature_controller.blacklist_developer_certificate);
 
 
 module.exports = router;
