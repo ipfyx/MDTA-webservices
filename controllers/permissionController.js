@@ -79,7 +79,7 @@ exports.permission_basic_scan = function (req, res) {
                 },
                 //Check if the permission has a location impact
                 permission_level_noprotection: function (callback) {
-                    Permission.count({permission_name: permission, permission_level: "NoProtection"}, callback);
+                    Permission.count({permission_name: permission, permission_level: "No Protection"}, callback);
                 },//Check if the permission has a location impact
                 permission_level_normal: function (callback) {
                     Permission.count({permission_name: permission, permission_level: "Normal"}, callback);
@@ -91,16 +91,16 @@ exports.permission_basic_scan = function (req, res) {
                     Permission.count({permission_name: permission, permission_level: "Signature"}, callback);
                 }, //Check if the permission has a location impact
                 permission_level_systemorsignature: function (callback) {
-                    Permission.count({permission_name: permission, permission_level: "SystemOrSignature"}, callback);
+                    Permission.count({permission_name: permission, permission_level: "System|Signature"}, callback);
                 },//Check if the permission has a location impact
                 permission_level_system: function (callback) {
                     Permission.count({permission_name: permission, permission_level: "System"}, callback);
                 },//Check if the permission has a location impact
                 permission_level_signatureorprivileged: function (callback) {
-                    Permission.count({permission_name: permission, permission_level: "SignatureOrPrivileged"}, callback);
+                    Permission.count({permission_name: permission, permission_level: "SignatureOr|Privileged"}, callback);
                 },//Check if the permission has a location impact
                 permission_level_nothirdparty: function (callback) {
-                    Permission.count({permission_name: permission, permission_level: "NoThirdParty"}, callback);
+                    Permission.count({permission_name: permission, permission_level: "No ThirdParty"}, callback);
                 },
             }, function (err, results) {
                 //Increment all the counter according to the result for the current permission
